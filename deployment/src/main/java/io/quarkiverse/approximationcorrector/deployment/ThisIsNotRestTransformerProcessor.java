@@ -4,26 +4,28 @@ import java.util.Collections;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 
-import javax.ws.rs.*;
-
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.MethodInfo;
+import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.ResponseHeader;
+import org.jboss.resteasy.reactive.common.processor.transformation.AnnotationsTransformer;
+import org.jboss.resteasy.reactive.common.processor.transformation.Transformation;
 
-import io.quarkus.arc.deployment.AnnotationsTransformerBuildItem;
-import io.quarkus.arc.processor.AnnotationsTransformer;
-import io.quarkus.arc.processor.Transformation;
 import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.resteasy.reactive.server.spi.AnnotationsTransformerBuildItem;
+import jakarta.ws.rs.*;
 
 /**
  * `StringUtils`, `DateUtils` and other `*Utils` are evil.
  * Please clearly state what your class is doing...
  */
 class ThisIsNotRestTransformerProcessor {
+
+    private static Logger logger = Logger.getLogger(ThisIsNotRestTransformerProcessor.class);
 
     public static class ReactiveResteasyEnabled implements BooleanSupplier {
         @Override
@@ -46,6 +48,7 @@ class ThisIsNotRestTransformerProcessor {
             public void transform(TransformationContext context) {
                 MethodInfo method = context.getTarget().asMethod();
                 if (isRestEndpoint.test(method)) {
+                    logger.infof("Correcting your approximation on %s", method.toString());
                     Transformation transform = context.transform();
                     transform.add(DotName.createSimple(ResponseHeader.class),
                             AnnotationValue.createStringValue("name", "X-ApproximationCorrector"),

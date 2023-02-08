@@ -16,6 +16,10 @@
             <artifactId>quarkus-arc-deployment</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-reactive-server-spi-deployment</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkiverse.approximationcorrector</groupId>
             <artifactId>quarkus-approximation-corrector</artifactId>
             <version>${project.version}</version>

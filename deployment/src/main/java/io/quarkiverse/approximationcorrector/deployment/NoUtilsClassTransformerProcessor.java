@@ -51,8 +51,8 @@ class NoUtilsClassTransformerProcessor {
                 final String[] interfaces) {
 
             super.visit(version, access, name, signature, superName, interfaces);
-            logger.warnf("I told you not do this!", name);
-            logger.warnf("Your code will panic at runtime -> %s", name);
+            logger.warnf("💀 I told you not do this!", name);
+            logger.warnf("💀 Your code will panic at runtime -> %s", name);
             MethodVisitor mv = visitMethod(Opcodes.ACC_PRIVATE + Opcodes.ACC_STATIC, "<clinit>",
                     "()V", null,
                     null);
