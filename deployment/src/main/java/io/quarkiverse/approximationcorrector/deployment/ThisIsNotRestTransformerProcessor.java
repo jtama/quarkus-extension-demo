@@ -53,7 +53,7 @@ class ThisIsNotRestTransformerProcessor {
                     transform.add(DotName.createSimple(ResponseHeader.class),
                             AnnotationValue.createStringValue("name", "X-ApproximationCorrector"),
                             AnnotationValue.createArrayValue("value", Collections
-                                    .singletonList(AnnotationValue.createStringValue("", "It's more JSON aver http really."))));
+                                    .singletonList(AnnotationValue.createStringValue("", "It's more JSON over http really."))));
                     transform.done();
                 }
             }
