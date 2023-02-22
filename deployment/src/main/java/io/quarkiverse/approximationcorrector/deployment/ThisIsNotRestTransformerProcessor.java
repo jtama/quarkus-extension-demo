@@ -4,6 +4,12 @@ import java.util.Collections;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.DotName;
@@ -17,7 +23,6 @@ import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.resteasy.reactive.server.spi.AnnotationsTransformerBuildItem;
-import jakarta.ws.rs.*;
 
 /**
  * `StringUtils`, `DateUtils` and other `*Utils` are evil.
