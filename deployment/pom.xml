@@ -20,9 +20,17 @@
             <artifactId>quarkus-resteasy-reactive-server-spi-deployment</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-client-reactive-jackson-deployment</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkiverse.approximationcorrector</groupId>
             <artifactId>quarkus-approximation-corrector</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-devservices-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

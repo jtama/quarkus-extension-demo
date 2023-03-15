@@ -67,7 +67,7 @@
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/../target/asciidoc/generated/config/</directory>
-                                    <include>quarkus-approximation-corrector.adoc</include>
+                                    <include>quarkus-environment.adoc</include>
                                     <filtering>false</filtering>
                                 </resource>
                                 <resource>
