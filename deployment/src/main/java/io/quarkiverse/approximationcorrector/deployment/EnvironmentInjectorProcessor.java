@@ -34,10 +34,11 @@ public class EnvironmentInjectorProcessor {
     @BuildStep
     public void addAdditionalResourceClass(
             CombinedIndexBuildItem index,
-            BuildProducer<AdditionalResourceClassBuildItem> additionalResourceClassBuildItemBuildProducer){
+            BuildProducer<AdditionalResourceClassBuildItem> additionalResourceClassBuildItemBuildProducer) {
         ClassInfo classInfo = index.getIndex().getClassByName(EnvironmentProviderClient.class);
-        if (classInfo != null){
-            additionalResourceClassBuildItemBuildProducer.produce(new AdditionalResourceClassBuildItem(classInfo, "/environment"));
+        if (classInfo != null) {
+            additionalResourceClassBuildItemBuildProducer
+                    .produce(new AdditionalResourceClassBuildItem(classInfo, "/environment"));
         }
     }
 
@@ -58,7 +59,8 @@ public class EnvironmentInjectorProcessor {
 
         additionalBeanBuildItemBuildProducer.produce(AdditionalBeanBuildItem.builder()
                 .addBeanClasses(Environment.class).build());
-        additionalIndexedClassesBuildItemBuildProducer.produce(new AdditionalIndexedClassesBuildItem(EnvironmentProviderClient.class.getName()));
+        additionalIndexedClassesBuildItemBuildProducer
+                .produce(new AdditionalIndexedClassesBuildItem(EnvironmentProviderClient.class.getName()));
         additionalBeanBuildItemBuildProducer.produce(AdditionalBeanBuildItem.builder()
                 .addBeanClass(Environments.class)
                 .setUnremovable()

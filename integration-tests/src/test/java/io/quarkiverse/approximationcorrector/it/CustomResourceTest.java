@@ -29,6 +29,7 @@ public class CustomResourceTest {
                 .then()
                 .statusCode(200)
                 .extract();
-        Assertions.assertEquals("Hello Acme Looniversity, welcome to Why does Elmyra Duff love animals so much ?", extract.body().asString());
+        Assertions.assertEquals("Hello Acme Looniversity, welcome to Why does Elmyra Duff love animals so much ?",
+                extract.body().asString());
     }
 }
