@@ -1,14 +1,8 @@
 package io.quarkiverse.approximationcorrector.deployment;
 
-import io.quarkus.deployment.builditem.AdditionalIndexedClassesBuildItem;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.jaxrs.client.reactive.runtime.JaxrsClientReactiveRecorder;
-import io.quarkus.resteasy.reactive.common.deployment.ResourceScanningResultBuildItem;
-import io.quarkus.resteasy.reactive.spi.AdditionalResourceClassBuildItem;
 import jakarta.inject.Singleton;
 
 import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.CompositeIndex;
 import org.jboss.jandex.DotName;
 
 import io.quarkiverse.approximationcorrector.runtime.Environment;
@@ -24,8 +18,10 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.AdditionalIndexedClassesBuildItem;
 import io.quarkus.deployment.builditem.ApplicationIndexBuildItem;
-import org.jboss.resteasy.reactive.common.processor.scanning.ResourceScanningResult;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.resteasy.reactive.spi.AdditionalResourceClassBuildItem;
 
 public class EnvironmentInjectorProcessor {
 

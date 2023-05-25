@@ -1,9 +1,9 @@
 name: Approximation Corrector
 description: Here to correct you approximations
 metadata:
-keywords:
-  - Approximation Corrector
-guide: https://quarkiverse.github.io/quarkiverse-docs/custom/dev/
-categories:
-  - "miscellaneous"
-status: "preview"
+  keywords:
+    - Approximation Corrector
+  guide: https://quarkiverse.github.io/quarkiverse-docs/custom/dev/
+  categories:
+    - "miscellaneous"
+  status: "preview"

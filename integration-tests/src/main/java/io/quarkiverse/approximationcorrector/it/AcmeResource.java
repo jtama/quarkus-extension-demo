@@ -5,7 +5,6 @@ import jakarta.ws.rs.Path;
 
 import io.quarkiverse.approximationcorrector.runtime.Environment;
 import io.quarkiverse.approximationcorrector.runtime.EnvironmentValues;
-import io.smallrye.mutiny.Uni;
 
 @Path("/acme")
 public class AcmeResource {
