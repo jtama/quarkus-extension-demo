@@ -43,10 +43,10 @@ class ThisIsNotRestTransformerProcessor {
     @BuildStep(onlyIf = ReactiveResteasyEnabled.class)
     @Record(ExecutionTime.RUNTIME_INIT)
     public void warn(
-            EnvironmentCompileConfiguration compileConfiguration,
+            AcmeConfigurationBuildTimeConfiguration compileConfiguration,
             ApplicationIndexBuildItem applicationIndexBuildItem,
             ThisIsNotRestLogger thisIsNotRestLogger) {
-        if (compileConfiguration.isRestStrict) {
+        if (compileConfiguration.strict.isRestStrict) {
             return;
         }
         Stream<MethodInfo> restEndpoints = applicationIndexBuildItem.getIndex().getKnownClasses().stream()
@@ -60,9 +60,9 @@ class ThisIsNotRestTransformerProcessor {
 
     @BuildStep(onlyIf = ReactiveResteasyEnabled.class)
     public void process(
-            EnvironmentCompileConfiguration compileConfiguration,
+            AcmeConfigurationBuildTimeConfiguration compileConfiguration,
             BuildProducer<AnnotationsTransformerBuildItem> transformers) {
-        if (!compileConfiguration.isRestStrict) {
+        if (!compileConfiguration.strict.isRestStrict) {
             return;
         }
         logger.infof("Correcting your approximations if any.");
@@ -79,7 +79,7 @@ class ThisIsNotRestTransformerProcessor {
             public void transform(TransformationContext context) {
                 MethodInfo method = context.getTarget().asMethod();
                 if (isRestEndpoint.test(method)) {
-                    if (!compileConfiguration.isRestStrict) {
+                    if (!compileConfiguration.strict.isRestStrict) {
 
                     }
                     Transformation transform = context.transform();

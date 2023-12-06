@@ -37,7 +37,6 @@ public class AcmeResource {
         return hello(bdxIOConfAuthor, bdxIOConfTitle);
     }
 
-    @Path("/")
     @GET
     public String hello() {
         return hello(dummyConfAuthor, dummyConfTitle);

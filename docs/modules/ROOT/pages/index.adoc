@@ -3,7 +3,7 @@
 
 include::./includes/attributes.adoc[]
 
-TIP: Describe what the extension does here.
+TIP: The acme-configuration extension provides easy integration with our internal conference referential
 
 == Installation
 
@@ -34,7 +34,18 @@ Or even using the quarkus cli :
 quarkus extension add 'org.acme:configuration-provider'
 ----
 
+== Usage
+
+Simply get values injected throug the `@GonfigProperty` annotation
+
+[source,java]
+----
+include::{examplesdir}/FooBar.java[]
+----
+
+
+
 [[extension-configuration-reference]]
 == Extension Configuration Reference
 
-include::includes/quarkus-approximation-corrector.adoc[leveloffset=+1,opts=optional]
+include::includes/acme.adoc[leveloffset=+1,opts=optional]

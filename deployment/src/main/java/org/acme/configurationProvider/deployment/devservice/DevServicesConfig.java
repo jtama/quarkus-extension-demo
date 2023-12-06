@@ -1,12 +1,13 @@
 package org.acme.configurationProvider.deployment.devservice;
 
+import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 
 import java.util.Optional;
 
-@ConfigRoot(prefix = "acme", name = "devservices", phase = ConfigPhase.BUILD_TIME)
+@ConfigGroup
 public class DevServicesConfig {
 
     /**

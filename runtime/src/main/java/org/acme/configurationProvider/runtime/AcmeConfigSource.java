@@ -4,6 +4,7 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,8 +15,12 @@ public class AcmeConfigSource implements ConfigSource {
 
     private final EnvironmentProviderClient environmentProviderClient;
 
-
     private final Pattern patternMatcher;
+
+    private final Predicate<String> isAcme = key -> key.startsWith("acme.");
+
+    private final Predicate<String> isProviderConfiguration = key -> key.equals("acme.environment.url");
+
 
     public AcmeConfigSource(EnvironmentProviderClient environmentProviderClient) {
         String pattern = "acme\\.(?<env>.*)\\.(?<key>.*)";
@@ -47,7 +52,9 @@ public class AcmeConfigSource implements ConfigSource {
 
     @Override
     public String getValue(String propertyName) {
-        if (!propertyName.startsWith("acme."))
+        if (Predicate.not(isAcme)
+                .or(isProviderConfiguration)
+                .test(propertyName))
             return null;
 
         // Now create matcher object.

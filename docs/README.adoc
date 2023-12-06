@@ -1,0 +1,7 @@
+= Generating documentation
+
+[source,bash]
+----
+docker container run --rm -v $(pwd):$(pwd) -w $(pwd) antora antora --fetch --to-dir=build antora-playbook.yaml
+----
+

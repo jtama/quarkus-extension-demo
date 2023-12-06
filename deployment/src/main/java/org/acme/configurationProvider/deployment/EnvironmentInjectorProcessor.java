@@ -16,7 +16,7 @@ public class EnvironmentInjectorProcessor {
     private static final Logger logger = Logger.getLogger(EnvironmentInjectorProcessor.class);
 
     @BuildStep
-    void askForAppllicationScann(ApplicationIndexBuildItem index,
+    void askForAppllicationScan(ApplicationIndexBuildItem index,
                                  BuildProducer<AcmeEnvironmentBuildItem> buildProducer) {
         index.getIndex().getAnnotations(ConfigProperty.class)
                 .stream()

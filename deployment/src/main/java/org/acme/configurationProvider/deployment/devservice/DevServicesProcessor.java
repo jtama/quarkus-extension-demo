@@ -14,6 +14,8 @@ import io.quarkus.devservices.common.ConfigureUtil;
 import io.quarkus.devservices.common.ContainerAddress;
 import io.quarkus.devservices.common.ContainerLocator;
 import io.quarkus.runtime.configuration.ConfigUtils;
+import org.acme.configurationProvider.deployment.AcmeConfigurationBuildTimeConfiguration;
+import org.acme.configurationProvider.deployment.AcmeConfigurationProviderProcessor$$accessor;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
@@ -43,7 +45,7 @@ public class DevServicesProcessor {
     public DevServicesResultBuildItem startEnvProviderDevService(
             DockerStatusBuildItem dockerStatusBuildItem,
             LaunchModeBuildItem launchMode,
-            EnvironmentBuildTimeConfig environmentBuildTimeConfig,
+            AcmeConfigurationBuildTimeConfiguration buildTimeConfiguration,
             Optional<ConsoleInstalledBuildItem> consoleInstalledBuildItem,
             CuratedApplicationShutdownBuildItem closeBuildItem,
             LoggingSetupBuildItem loggingSetupBuildItem,
@@ -53,7 +55,7 @@ public class DevServicesProcessor {
                 (launchMode.isTest() ? "(test) " : "") + "AcmeEnv Dev Services Starting:",
                 consoleInstalledBuildItem, loggingSetupBuildItem);
         try {
-            devService = startAcmeEnv(dockerStatusBuildItem, launchMode, devServicesConfig.timeout, environmentBuildTimeConfig);
+            devService = startAcmeEnv(dockerStatusBuildItem, launchMode, devServicesConfig.timeout, buildTimeConfiguration.devservices);
             if (devService == null) {
                 compressor.closeAndDumpCaptured();
             } else {
@@ -111,8 +113,8 @@ public class DevServicesProcessor {
             DockerStatusBuildItem dockerStatusBuildItem,
             LaunchModeBuildItem launchMode,
             Optional<Duration> timeout,
-            EnvironmentBuildTimeConfig buildTimeConfiguration) {
-        if (!buildTimeConfiguration.devservices.enabled.orElse(true)) {
+            DevServicesConfig buildTimeConfiguration) {
+        if (!buildTimeConfiguration.enabled.orElse(true)) {
             // explicitly disabled
             LOGGER.debug("Not starting dev services for AcmeEnv, as it has been disabled in the config.");
             return null;
@@ -136,7 +138,7 @@ public class DevServicesProcessor {
         // Starting the server
         final Supplier<DevServicesResultBuildItem.RunningDevService> defaultAcmeEnvBrokerSupplier = () -> {
             AcmeEnvContainer container = new AcmeEnvContainer(
-                    DockerImageName.parse(buildTimeConfiguration.devservices.imageName));
+                    DockerImageName.parse(buildTimeConfiguration.imageName));
 
             ConfigureUtil.configureSharedNetwork(container, "acmeEnv");
             container.withLabel(DEV_SERVICE_LABEL, DEV_SERVICE_LABEL);

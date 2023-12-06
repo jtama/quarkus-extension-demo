@@ -1,9 +1,12 @@
 name: Configuration Provider
 description: Provides flawless configration for ACME Company ©
+group-id: org.acme
+artifact-id: configuration-provider
 metadata:
   keywords:
     - Approximation Corrector
   guide: https://jtama.github.io/quarkus-extension-demo
   categories:
     - "configuration"
+    - "tutorial"
   status: "stable"
