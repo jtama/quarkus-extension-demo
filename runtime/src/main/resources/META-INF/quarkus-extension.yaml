@@ -1,9 +1,12 @@
-name: Approximation Corrector
-description: Here to correct you approximations
+name: Configuration Provider
+description: Provides flawless configration for ACME Company ©
+group-id: org.acme
+artifact-id: configuration-provider
 metadata:
   keywords:
     - Approximation Corrector
-  guide: https://quarkiverse.github.io/quarkiverse-docs/custom/dev/
+  guide: https://jtama.github.io/quarkus-extension-demo
   categories:
-    - "miscellaneous"
-  status: "preview"
+    - "configuration"
+    - "tutorial"
+  status: "stable"

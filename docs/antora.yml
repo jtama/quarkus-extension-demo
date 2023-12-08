@@ -1,5 +1,5 @@
-name: quarkus-approximation-corrector
-title: Quarkus Approximation Corrector
-version: dev
+name: acme-configuration-provider
+title: Acme Company © Configuration Provider
+version: true
 nav:
   - modules/ROOT/nav.adoc

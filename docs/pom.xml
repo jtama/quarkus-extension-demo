@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.quarkiverse.approximationcorrector</groupId>
-        <artifactId>quarkus-approximation-corrector-parent</artifactId>
-        <version>999-SNAPSHOT</version>
+        <groupId>org.acme</groupId>
+        <artifactId>configuration-provider-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>quarkus-approximation-corrector-docs</artifactId>
-    <name>Quarkus Approximation Corrector - Documentation</name>
+    <artifactId>configuration-provider-docs</artifactId>
+    <name>Configuration Provider - Documentation</name>
 
     <dependencies>
         <!-- Make sure the doc is built after the other artifacts -->
         <dependency>
-            <groupId>io.quarkiverse.approximationcorrector</groupId>
-            <artifactId>quarkus-approximation-corrector-deployment</artifactId>
+            <groupId>org.acme</groupId>
+            <artifactId>configuration-provider-deployment</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -67,7 +67,7 @@
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/../target/asciidoc/generated/config/</directory>
-                                    <include>quarkus-environment.adoc</include>
+                                    <include>acme.adoc</include>>
                                     <filtering>false</filtering>
                                 </resource>
                                 <resource>

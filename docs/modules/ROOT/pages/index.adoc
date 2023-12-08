@@ -1,25 +1,51 @@
-= Quarkus Approximation Corrector
+[id="acme-configuration-provider-tutorial"]
+= Acme Company © Configuration Provider
 
 include::./includes/attributes.adoc[]
 
-TIP: Describe what the extension does here.
+TIP: The acme-configuration extension provides easy integration with our internal conference referential
 
 == Installation
 
 If you want to use this extension, you need to add the `io.quarkiverse.approximationcorrector:quarkus-approximation-corrector` extension first to your build file.
 
-For instance, with Maven, add the following dependency to your POM file:
+For instance, with Maven, directly add the following dependency to your POM file:
 
 [source,xml,subs=attributes+]
 ----
 <dependency>
-    <groupId>io.quarkiverse.approximationcorrector</groupId>
-    <artifactId>quarkus-approximation-corrector</artifactId>
+    <groupId>org.acmer</groupId>
+    <artifactId>configuration-provider</artifactId>
     <version>{project-version}</version>
 </dependency>
 ----
 
+Using command line :
+
+[source,bash,subs=attributes+]
+----
+./mvnw quarkus:add-extension -Dextensions='org.acme:configuration-provider'
+----
+
+Or even using the quarkus cli :
+
+[source,bash,subs=attributes+]
+----
+quarkus extension add 'org.acme:configuration-provider'
+----
+
+== Usage
+
+Simply get values injected through the `@ConfigProperty` annotation :
+
+[source,java]
+----
+include::{examplesdir}/FooBar.java[]
+----
+<1> : All configuration property starting with `acme.` will be populated.
+
+
 [[extension-configuration-reference]]
 == Extension Configuration Reference
 
-include::includes/quarkus-approximation-corrector.adoc[leveloffset=+1, opts=optional]
+include::includes/acme.adoc[leveloffset=+1,opts=optional]

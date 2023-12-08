@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.quarkiverse.approximationcorrector</groupId>
-        <artifactId>quarkus-approximation-corrector-parent</artifactId>
-        <version>999-SNAPSHOT</version>
+        <groupId>org.acme</groupId>
+        <artifactId>configuration-provider-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>quarkus-approximation-corrector-deployment</artifactId>
-    <name>Quarkus Approximation Corrector - Deployment</name>
+    <artifactId>configuration-provider-deployment</artifactId>
+    <name>Configuration Provider - Deployment</name>
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -24,8 +24,8 @@
             <artifactId>quarkus-rest-client-reactive-jackson-deployment</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkiverse.approximationcorrector</groupId>
-            <artifactId>quarkus-approximation-corrector</artifactId>
+            <groupId>org.acme</groupId>
+            <artifactId>configuration-provider</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
