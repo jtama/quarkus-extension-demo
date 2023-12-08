@@ -20,7 +20,11 @@ public class DevServicesConfig {
     /**
      * The Acme configuration value provider container image to use.
      *
-     * Default to image:https://quay.io/repository/jtama/acme-provider/status["Docker Repository on Quay", link="https://quay.io/repository/jtama/acme-provider"]
+     * [INFO]
+     * ====
+     * Details about default image on https://quay.io/repository/jtama/acme-provider/manifest/sha256:3eca3fe7aedf4bfe8b3213b67c3449c87bc2ab10ae264f681d429ca6c274471f?tab=layers[Docker Repository on Quay]
+     * ====
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "quay.io/jtama/acme-provider")
     public String imageName;

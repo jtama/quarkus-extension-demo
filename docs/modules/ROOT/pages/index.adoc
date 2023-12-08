@@ -36,13 +36,13 @@ quarkus extension add 'org.acme:configuration-provider'
 
 == Usage
 
-Simply get values injected throug the `@GonfigProperty` annotation
+Simply get values injected through the `@ConfigProperty` annotation :
 
 [source,java]
 ----
 include::{examplesdir}/FooBar.java[]
 ----
-
+<1> : All configuration property starting with `acme.` will be populated.
 
 
 [[extension-configuration-reference]]
