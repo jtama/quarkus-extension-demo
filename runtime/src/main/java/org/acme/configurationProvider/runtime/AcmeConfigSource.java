@@ -22,12 +22,12 @@ public class AcmeConfigSource implements ConfigSource {
     private final Predicate<String> isProviderConfiguration = key -> key.equals("acme.environment.url");
 
 
-    public AcmeConfigSource(EnvironmentProviderClient environmentProviderClient) {
+    public AcmeConfigSource(EnvironmentRuntimeConfiguration runtimeConfiguration) {
+        environmentProviderClient = new EnvironmentProviderClient(runtimeConfiguration.url());
         String pattern = "acme\\.(?<env>.*)\\.(?<key>.*)";
 
         // Create a Pattern object
         patternMatcher = Pattern.compile(pattern);
-        this.environmentProviderClient = environmentProviderClient;
     }
 
     /**

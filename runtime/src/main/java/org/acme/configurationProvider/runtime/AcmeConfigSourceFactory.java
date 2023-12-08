@@ -15,12 +15,8 @@ import java.util.OptionalInt;
 
 public class AcmeConfigSourceFactory implements ConfigSourceFactory {
 
-    private EnvironmentProviderClient getEnvironmentClient(EnvironmentRuntimeConfiguration runtimeConfiguration) {
-        return new EnvironmentProviderClient(runtimeConfiguration.url());
-    }
-
     private Iterable<ConfigSource> getConfigSources(final EnvironmentRuntimeConfiguration config) {
-        return List.of(new AcmeConfigSource(getEnvironmentClient(config)));
+        return List.of(new AcmeConfigSource(config));
     }
 
     @Override
@@ -29,9 +25,7 @@ public class AcmeConfigSourceFactory implements ConfigSourceFactory {
         SmallRyeConfig config = new SmallRyeConfigBuilder()
                 .withSources(new ConfigSourceContext.ConfigSourceContextConfigSource(context))
                 .withMapping(EnvironmentRuntimeConfiguration.class)
-                .withValidateUnknown(false)
-                .withMappingIgnore("acme.strict.rest")
-                .withMappingIgnore("acme.strict.utils")
+                .addDiscoveredCustomizers()
                 .build();
 
         EnvironmentRuntimeConfiguration mapping = config.getConfigMapping(EnvironmentRuntimeConfiguration.class);
