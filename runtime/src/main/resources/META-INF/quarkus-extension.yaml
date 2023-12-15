@@ -1,5 +1,5 @@
 name: Configuration Provider
-description: Provides flawless configration for ACME Company ©
+description: Provides flawless configration for ACME Company ©. Will inject if exists, all @ConfigProperty starting with 'env.'
 group-id: org.acme
 artifact-id: configuration-provider
 metadata:

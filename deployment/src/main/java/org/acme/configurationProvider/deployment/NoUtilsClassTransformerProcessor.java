@@ -2,9 +2,12 @@ package org.acme.configurationProvider.deployment;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationIndexBuildItem;
 import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.gizmo.Gizmo;
+import org.acme.configurationProvider.runtime.UtilsAreBadLogger;
 import org.jboss.logging.Logger;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
@@ -17,20 +20,29 @@ import java.util.List;
  * Please clearly state what your class is doing...
  */
 class NoUtilsClassTransformerProcessor {
+    private static final Logger logger = Logger.getLogger(NoUtilsClassTransformerProcessor.class);
 
     @BuildStep
+    @Record(ExecutionTime.RUNTIME_INIT)
     public void build(ApplicationIndexBuildItem applicationIndex,
-                      BuildProducer<BytecodeTransformerBuildItem> transformers) {
+                      AcmeConfigurationBuildTimeConfiguration compileConfiguration,
+                      BuildProducer<BytecodeTransformerBuildItem> transformers,
+                      UtilsAreBadLogger utilsAreBadLogger) {
         List<String> utilsClasses = applicationIndex.getIndex()
                 .getKnownClasses()
                 .stream()
                 .filter(info -> info.name().toString().endsWith("Utils"))
                 .map(info -> info.name().toString())
                 .toList();
-        for (String className : utilsClasses) {
-            transformers.produce(new BytecodeTransformerBuildItem(className,
-                    (name, classVisitor) -> new NoUtilsClassVisitor(Gizmo.ASM_API_VERSION, classVisitor)));
+        if (compileConfiguration.strict.isUtilsStrict) {
+            logger.infof("Someone may not be happy in the future, but you were warned...");
+            for (String className : utilsClasses) {
+                transformers.produce(new BytecodeTransformerBuildItem(className,
+                        (name, classVisitor) -> new NoUtilsClassVisitor(Gizmo.ASM_API_VERSION, classVisitor)));
+            }
+            return;
         }
+        utilsAreBadLogger.nope(utilsClasses);
     }
 
     private static class NoUtilsClassVisitor extends ClassVisitor {
@@ -50,8 +62,6 @@ class NoUtilsClassTransformerProcessor {
                 final String[] interfaces) {
 
             super.visit(version, access, name, signature, superName, interfaces);
-            logger.warnf("💀 I told you not do this!", name);
-            logger.warnf("💀 Your code will panic at runtime -> %s", name);
             MethodVisitor mv = visitMethod(Opcodes.ACC_PRIVATE + Opcodes.ACC_STATIC, "<clinit>",
                     "()V", null,
                     null);

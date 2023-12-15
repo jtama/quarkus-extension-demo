@@ -6,6 +6,6 @@ import io.smallrye.config.SmallRyeConfigBuilderCustomizer;
 public class AcmeConfigBuildItemCustomizer implements SmallRyeConfigBuilderCustomizer {
     @Override
     public void configBuilder(SmallRyeConfigBuilder builder) {
-        builder.withMappingIgnore("acme.strict.**");
+        builder.withMappingIgnore("acme.**");
     }
 }

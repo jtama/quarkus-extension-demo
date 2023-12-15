@@ -7,7 +7,7 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.jvm -t quarkus/quarkus-approximation-corrector-en-provider-jvm .
+# docker build -f src/main/docker/Dockerfile.jvm -t quay.io/jtama/acme-provider:jvm .
 #
 # Then run the container using:
 #

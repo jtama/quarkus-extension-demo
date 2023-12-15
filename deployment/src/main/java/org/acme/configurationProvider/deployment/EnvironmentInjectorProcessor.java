@@ -22,7 +22,7 @@ public class EnvironmentInjectorProcessor {
                 .stream()
                 .map(AnnotationInstance::values)
                 .flatMap(List::stream)
-                .filter(value -> value.asString().startsWith("acme"))
+                .filter(value -> value.asString().startsWith("env."))
                 .findFirst()
                 .ifPresent(annotationInstance -> buildProducer.produce(new AcmeEnvironmentBuildItem()));
     }

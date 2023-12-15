@@ -15,7 +15,6 @@ import io.quarkus.devservices.common.ContainerAddress;
 import io.quarkus.devservices.common.ContainerLocator;
 import io.quarkus.runtime.configuration.ConfigUtils;
 import org.acme.configurationProvider.deployment.AcmeConfigurationBuildTimeConfiguration;
-import org.acme.configurationProvider.deployment.AcmeConfigurationProviderProcessor$$accessor;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
@@ -33,10 +32,10 @@ public class DevServicesProcessor {
      * This allows other applications to discover the running service and use it instead of starting a new instance.
      */
     static final String DEV_SERVICE_LABEL = "acme-env-dev-service";
-    static final int MINIO_PORT = 8080;
+    static final int ACME_PORT = 8080;
     private static final Logger LOGGER = Logger.getLogger(DevServicesProcessor.class);
     private static final String ACME_ENV_URL_KEY = "acme.environment.url";
-    private static final ContainerLocator acmeEnvContainerLocator = new ContainerLocator(DEV_SERVICE_LABEL, MINIO_PORT);
+    private static final ContainerLocator acmeEnvContainerLocator = new ContainerLocator(DEV_SERVICE_LABEL, ACME_PORT);
     static volatile DevServicesResultBuildItem.RunningDevService devService;
 
     static volatile boolean first = true;
@@ -113,8 +112,8 @@ public class DevServicesProcessor {
             DockerStatusBuildItem dockerStatusBuildItem,
             LaunchModeBuildItem launchMode,
             Optional<Duration> timeout,
-            DevServicesConfig buildTimeConfiguration) {
-        if (!buildTimeConfiguration.enabled.orElse(true)) {
+            DevServicesConfig devServicesConfig) {
+        if (!devServicesConfig.enabled) {
             // explicitly disabled
             LOGGER.debug("Not starting dev services for AcmeEnv, as it has been disabled in the config.");
             return null;
@@ -138,7 +137,7 @@ public class DevServicesProcessor {
         // Starting the server
         final Supplier<DevServicesResultBuildItem.RunningDevService> defaultAcmeEnvBrokerSupplier = () -> {
             AcmeEnvContainer container = new AcmeEnvContainer(
-                    DockerImageName.parse(buildTimeConfiguration.imageName));
+                    DockerImageName.parse(devServicesConfig.imageName));
 
             ConfigureUtil.configureSharedNetwork(container, "acmeEnv");
             container.withLabel(DEV_SERVICE_LABEL, DEV_SERVICE_LABEL);
@@ -169,11 +168,11 @@ public class DevServicesProcessor {
         private AcmeEnvContainer(DockerImageName dockerImageName) {
             super(dockerImageName);
             withNetwork(Network.SHARED);
-            withExposedPorts(MINIO_PORT);
+            withExposedPorts(ACME_PORT);
         }
 
         public int getPort() {
-            return getMappedPort(MINIO_PORT);
+            return getMappedPort(ACME_PORT);
         }
     }
 }

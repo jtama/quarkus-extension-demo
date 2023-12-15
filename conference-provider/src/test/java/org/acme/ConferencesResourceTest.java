@@ -13,16 +13,29 @@ public class ConferencesResourceTest {
 
 
     @Test
-    public void testHelloEndpoint() {
-        Map<String, Map<String, String>> result = given()
-                .when().get("/conferences")
+    public void testUnknownConference() {
+        ConferencesResource.Conference result = given()
+                .when().get("/conferences/unknown")
                 .then()
                 .statusCode(200)
                 .extract()
                 .body()
-                .as(Map.class);
-        Assertions.assertEquals("Quarkus: Greener, Better, Faster, Stronger", result.get("snowcamp").get("title"));
-        Assertions.assertEquals("#RetourAuxSources : Le cache HTTP", result.get("devoxxFR").get("title"));
+                .as(ConferencesResource.Conference.class);
+        Assertions.assertEquals("Always Look on the Bright Side of Life", result.title());
+        Assertions.assertEquals("Monty Python", result.author());
+    }
+
+    @Test
+    public void testDummyConference() {
+        ConferencesResource.Conference result = given()
+                .when().get("/conferences/dummy")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(ConferencesResource.Conference.class);
+        Assertions.assertEquals("Why does Elmyra Duff love animals so much ?", result.title());
+        Assertions.assertEquals("Malvin le Martien", result.author());
     }
 
 }

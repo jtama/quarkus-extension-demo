@@ -17,7 +17,7 @@ class EnvironmentProviderClient {
         uriBuilder = UriBuilder.fromUri(baseUrl).path("/conferences/{prefix}");
     }
 
-    Map<String, String> getEnvironment(String prefix) {
+    public Map<String, String> getEnvironment(String prefix) {
         return restClient.target(uriBuilder.build(prefix)).request().get(Map.class);
     }
 }

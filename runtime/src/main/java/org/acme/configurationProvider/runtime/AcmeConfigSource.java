@@ -17,14 +17,12 @@ public class AcmeConfigSource implements ConfigSource {
 
     private final Pattern patternMatcher;
 
-    private final Predicate<String> isAcme = key -> key.startsWith("acme.");
-
-    private final Predicate<String> isProviderConfiguration = key -> key.equals("acme.environment.url");
+    private final Predicate<String> isAcme = key -> key.startsWith("env.");
 
 
     public AcmeConfigSource(EnvironmentRuntimeConfiguration runtimeConfiguration) {
         environmentProviderClient = new EnvironmentProviderClient(runtimeConfiguration.url());
-        String pattern = "acme\\.(?<env>.*)\\.(?<key>.*)";
+        String pattern = "env.(?<env>.*)\\.(?<key>.*)";
 
         // Create a Pattern object
         patternMatcher = Pattern.compile(pattern);
@@ -53,7 +51,6 @@ public class AcmeConfigSource implements ConfigSource {
     @Override
     public String getValue(String propertyName) {
         if (Predicate.not(isAcme)
-                .or(isProviderConfiguration)
                 .test(propertyName))
             return null;
 

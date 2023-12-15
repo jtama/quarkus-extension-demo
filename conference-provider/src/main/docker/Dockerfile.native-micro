@@ -10,11 +10,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/quarkus-approximation-corrector-en-provider .
+# docker build -f src/main/docker/Dockerfile.native-micro -t quay.io/jtama/acme-provider:native .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/quarkus-approximation-corrector-en-provider
+# docker run -i --rm -p 8080:8080 quay.io/jtama/acme-provider:native
 #
 ###
 FROM quay.io/quarkus/quarkus-micro-image:2.0

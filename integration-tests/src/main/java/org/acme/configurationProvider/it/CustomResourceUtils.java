@@ -16,10 +16,15 @@
  */
 package org.acme.configurationProvider.it;
 
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+
+@Path("/utils")
 public class CustomResourceUtils {
     // add some rest methods here
 
-    public static String hello() {
+    @GET
+    public String hello() {
         return "Hello custom";
     }
 }

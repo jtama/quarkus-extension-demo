@@ -45,57 +45,19 @@ class ThisIsNotRestTransformerProcessor {
     public void warn(
             AcmeConfigurationBuildTimeConfiguration compileConfiguration,
             ApplicationIndexBuildItem applicationIndexBuildItem,
+            BuildProducer<AnnotationsTransformerBuildItem> transformers,
             ThisIsNotRestLogger thisIsNotRestLogger) {
         if (compileConfiguration.strict.isRestStrict) {
+            logger.infof("Correcting your approximations if any. We'll see at runtime !");
+            transformers.produce(new AnnotationsTransformerBuildItem(new RestMethodCorrector(compileConfiguration)));
             return;
         }
         Stream<MethodInfo> restEndpoints = applicationIndexBuildItem.getIndex().getKnownClasses().stream()
                 .flatMap(classInfo -> classInfo.methods().stream())
                 .filter(isRestEndpoint);
-
         thisIsNotRestLogger.youAreNotDoingREST(restEndpoints
                 .map(methodInfo -> "You think you method \"%s#%s\" is doing rest but it's more JSON over HTTP actually.".formatted(methodInfo.declaringClass().toString(), methodInfo.toString()))
                 .toList());
-    }
-
-    @BuildStep(onlyIf = ReactiveResteasyEnabled.class)
-    public void process(
-            AcmeConfigurationBuildTimeConfiguration compileConfiguration,
-            BuildProducer<AnnotationsTransformerBuildItem> transformers) {
-        if (!compileConfiguration.strict.isRestStrict) {
-            return;
-        }
-        logger.infof("Correcting your approximations if any.");
-        transformers.produce(new AnnotationsTransformerBuildItem(new AnnotationsTransformer() {
-
-            private final boolean mustRecordWarning = true;
-
-            @Override
-            public boolean appliesTo(AnnotationTarget.Kind kind) {
-                return AnnotationTarget.Kind.METHOD == kind;
-            }
-
-            @Override
-            public void transform(TransformationContext context) {
-                MethodInfo method = context.getTarget().asMethod();
-                if (isRestEndpoint.test(method)) {
-                    if (!compileConfiguration.strict.isRestStrict) {
-
-                    }
-                    Transformation transform = context.transform();
-                    transform.add(DotName.createSimple(ResponseHeader.class),
-                            AnnotationValue.createStringValue("name", "X-ApproximationCorrector"),
-                            AnnotationValue.createArrayValue("value", Collections
-                                    .singletonList(AnnotationValue.createStringValue("", "It's more JSON over http really."))));
-                    transform.done();
-                    if (mustRecordWarning) {
-
-                    }
-                }
-            }
-
-        }));
-
     }
 
     public static class ReactiveResteasyEnabled implements BooleanSupplier {
@@ -103,5 +65,40 @@ class ThisIsNotRestTransformerProcessor {
         public boolean getAsBoolean() {
             return QuarkusClassLoader.isClassPresentAtRuntime("org.jboss.resteasy.reactive.ResponseHeader");
         }
+    }
+
+    private class RestMethodCorrector implements AnnotationsTransformer {
+
+        private final boolean mustRecordWarning = true;
+        private AcmeConfigurationBuildTimeConfiguration compileConfiguration;
+
+        private RestMethodCorrector(AcmeConfigurationBuildTimeConfiguration compileConfiguration) {
+            this.compileConfiguration = compileConfiguration;
+        }
+
+        @Override
+        public boolean appliesTo(AnnotationTarget.Kind kind) {
+            return AnnotationTarget.Kind.METHOD == kind;
+        }
+
+        @Override
+        public void transform(AnnotationsTransformer.TransformationContext context) {
+            MethodInfo method = context.getTarget().asMethod();
+            if (isRestEndpoint.test(method)) {
+                if (!compileConfiguration.strict.isRestStrict) {
+
+                }
+                Transformation transform = context.transform();
+                transform.add(DotName.createSimple(ResponseHeader.class),
+                        AnnotationValue.createStringValue("name", "X-ApproximationCorrector"),
+                        AnnotationValue.createArrayValue("value", Collections
+                                .singletonList(AnnotationValue.createStringValue("", "It's more JSON over http really."))));
+                transform.done();
+                if (mustRecordWarning) {
+
+                }
+            }
+        }
+
     }
 }

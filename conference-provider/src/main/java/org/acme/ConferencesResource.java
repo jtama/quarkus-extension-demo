@@ -17,8 +17,10 @@ public class ConferencesResource {
 
     static {
         conferences = new HashMap<>(Map.of(
+                "maryCoreTech", new Conference("A mandonné, ça fatigue !", "Myra Cool"),
+                "daminouTech", new Conference("Tchou la bise !", "Super Daminou"),
                 "snowcamp", new Conference("Quarkus: Greener, Better, Faster, Stronger", "j.tama"),
-                "devoxxFR", new Conference("#RetourAuxSources : Le cache HTTP", "h.sablonnière ❤"),
+                "devoxxFR", new Conference("#RetourAuxSources : Le cache HTTP", "Hubert Sablonnière ❤"),
                 "dummy", new Conference("Why does Elmyra Duff love animals so much ?", "Malvin le Martien")
         ));
     }

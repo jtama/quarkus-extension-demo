@@ -5,7 +5,7 @@ import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 import org.acme.configurationProvider.deployment.devservice.DevServicesConfig;
 
-@ConfigRoot(prefix = "acme", name = ConfigItem.PARENT, phase = ConfigPhase.BUILD_TIME)
+@ConfigRoot(prefix = "acme", name = "", phase = ConfigPhase.BUILD_TIME)
 public class AcmeConfigurationBuildTimeConfiguration {
 
     /**
