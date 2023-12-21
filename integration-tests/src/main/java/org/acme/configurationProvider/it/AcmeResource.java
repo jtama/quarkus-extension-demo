@@ -4,7 +4,6 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Path("/acme")

@@ -18,7 +18,6 @@ import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.MethodInfo;
 import org.jboss.logging.Logger;
-import org.jboss.resteasy.reactive.ResponseHeader;
 import org.jboss.resteasy.reactive.common.processor.transformation.AnnotationsTransformer;
 import org.jboss.resteasy.reactive.common.processor.transformation.Transformation;
 
@@ -40,6 +39,13 @@ class ThisIsNotRestTransformerProcessor {
     private static final Predicate<MethodInfo> isPatch = method -> method.hasAnnotation(DotName.createSimple(PATCH.class));
     private static final Predicate<MethodInfo> isRestEndpoint = isGet.or(isPut).or(isPost).or(isDelete).or(isPatch);
 
+    public static class ReactiveResteasyEnabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return QuarkusClassLoader.isClassPresentAtRuntime("org.jboss.resteasy.reactive.ResponseHeader");
+        }
+    }
+
     @BuildStep(onlyIf = ReactiveResteasyEnabled.class)
     @Record(ExecutionTime.RUNTIME_INIT)
     public void warn(
@@ -58,13 +64,6 @@ class ThisIsNotRestTransformerProcessor {
         thisIsNotRestLogger.youAreNotDoingREST(restEndpoints
                 .map(methodInfo -> "You think you method \"%s#%s\" is doing rest but it's more JSON over HTTP actually.".formatted(methodInfo.declaringClass().toString(), methodInfo.toString()))
                 .toList());
-    }
-
-    public static class ReactiveResteasyEnabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return QuarkusClassLoader.isClassPresentAtRuntime("org.jboss.resteasy.reactive.ResponseHeader");
-        }
     }
 
     private class RestMethodCorrector implements AnnotationsTransformer {
@@ -89,7 +88,7 @@ class ThisIsNotRestTransformerProcessor {
 
                 }
                 Transformation transform = context.transform();
-                transform.add(DotName.createSimple(ResponseHeader.class),
+                transform.add(DotName.createSimple(org.jboss.resteasy.reactive.ResponseHeader.class),
                         AnnotationValue.createStringValue("name", "X-ApproximationCorrector"),
                         AnnotationValue.createArrayValue("value", Collections
                                 .singletonList(AnnotationValue.createStringValue("", "It's more JSON over http really."))));

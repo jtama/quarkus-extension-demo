@@ -85,6 +85,7 @@
       </activation>
       <modules>
         <module>integration-tests</module>
+        <module>picocli-tests</module>
       </modules>
     </profile>
   </profiles>

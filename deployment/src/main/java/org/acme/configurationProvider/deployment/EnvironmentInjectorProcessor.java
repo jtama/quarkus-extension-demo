@@ -16,7 +16,7 @@ public class EnvironmentInjectorProcessor {
     private static final Logger logger = Logger.getLogger(EnvironmentInjectorProcessor.class);
 
     @BuildStep
-    void askForAppllicationScan(ApplicationIndexBuildItem index,
+    void askForApplicationScan(ApplicationIndexBuildItem index,
                                  BuildProducer<AcmeEnvironmentBuildItem> buildProducer) {
         index.getIndex().getAnnotations(ConfigProperty.class)
                 .stream()
@@ -34,7 +34,7 @@ public class EnvironmentInjectorProcessor {
             runTimeConfigBuilder.produce(new RunTimeConfigBuilderBuildItem(AcmeConfigSourceFactoryBuilder.class.getName()));
             return;
         }
-        logger.warn("You shoud not use this extension if you don't need it.");
+        logger.warn("You should not use this extension if you don't need it.");
 
 
     }

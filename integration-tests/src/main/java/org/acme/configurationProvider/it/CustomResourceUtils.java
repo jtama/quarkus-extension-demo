@@ -16,6 +16,7 @@
  */
 package org.acme.configurationProvider.it;
 
+
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 

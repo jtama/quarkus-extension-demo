@@ -20,10 +20,6 @@
             <artifactId>quarkus-resteasy-reactive-server-spi-deployment</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest-client-reactive-jackson-deployment</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.acme</groupId>
             <artifactId>configuration-provider</artifactId>
             <version>${project.version}</version>
@@ -31,11 +27,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-devservices-deployment</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-reactive</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
