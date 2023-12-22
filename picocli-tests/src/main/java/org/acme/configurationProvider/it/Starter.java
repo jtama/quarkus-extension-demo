@@ -1,11 +1,15 @@
 package org.acme.configurationProvider.it;
 
+import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
 import picocli.CommandLine;
 
 @CommandLine.Command
 public class Starter implements Runnable{
 
+    @Inject
+    Logger log;
 
     @ConfigProperty(name = "env.snowcamp.title")
     String snowcampConfTitle;
@@ -14,8 +18,8 @@ public class Starter implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("********   WELCOME !     ********");
-        System.out.println("Welcome %s, that will present: \"%s\"%n".formatted(snowcampConfAuthor, snowcampConfTitle));
-        System.out.println("*********************************");
+        log.info("********   WELCOME !     ********");
+        log.infof("Welcome %s, that will present: \"%s\"%n",snowcampConfAuthor, snowcampConfTitle);
+        log.info("*********************************");
     }
 }

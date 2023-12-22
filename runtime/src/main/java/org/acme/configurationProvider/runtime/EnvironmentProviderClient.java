@@ -1,7 +1,6 @@
 package org.acme.configurationProvider.runtime;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import jakarta.ws.rs.core.UriBuilder;
 
 import java.io.IOException;
 import java.net.URI;
@@ -15,19 +14,19 @@ import java.util.concurrent.ExecutionException;
 class EnvironmentProviderClient {
 
     private final HttpClient restClient;
-    private final UriBuilder uriBuilder;
+    private final URI baseUri;
     private final UncheckedObjectMapper objectMapper;
 
     EnvironmentProviderClient(URI baseUrl) {
         restClient = HttpClient.newBuilder().build();
-        uriBuilder = UriBuilder.fromUri(baseUrl).path("/conferences/{prefix}");
+        baseUri = baseUrl.resolve("/conferences/");
         objectMapper = new UncheckedObjectMapper();
     }
 
     public Map<String, String> getEnvironment(String prefix) {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(uriBuilder.build(prefix))
+                .uri(baseUri.resolve(prefix))
                 .build();
         try {
             return restClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())

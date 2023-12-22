@@ -41,12 +41,7 @@ public class AcmeResource {
     @Path("/{event}")
     @GET
     public String hellodevoxxFR(String event) {
-        return hello(confByEvent.get(event));
-    }
-
-    @GET
-    public String hello() {
-        return hello(confByEvent.get("dummy"));
+        return hello(confByEvent.getOrDefault(event, confByEvent.get("dummy")));
     }
 
     private String hello(Map<String, String> conf) {
