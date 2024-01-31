@@ -11,10 +11,10 @@ public class AcmeResource {
 
     private final Map<String, Map<String, String>> confByEvent;
 
-    AcmeResource(@ConfigProperty(name = "env.devoxxFR.title")
-                         String devoxxFRConfTitle,
-                         @ConfigProperty(name = "env.devoxxFR.author")
-                         String devoxxFRConfAuthor,
+    AcmeResource(@ConfigProperty(name = "env.touraineTech.title")
+                         String touraineTechConfTitle,
+                         @ConfigProperty(name = "env.touraineTech.author")
+                         String touraineTechConfAuthor,
                          @ConfigProperty(name = "env.snowcamp.title")
                          String snowcampConfTitle,
                          @ConfigProperty(name = "env.snowcamp.author")
@@ -31,7 +31,7 @@ public class AcmeResource {
                          String dummyConfTitle,
                          @ConfigProperty(name = "env.dummy.author")
                          String dummyConfAuthor) {
-        confByEvent = Map.of("devoxxFR", Map.of("title", devoxxFRConfTitle, "author", devoxxFRConfAuthor),
+        confByEvent = Map.of("touraineTech", Map.of("title", touraineTechConfTitle, "author", touraineTechConfAuthor),
                 "maryCoreTech", Map.of("title", maryCoreTechConfTitle, "author", maryCoreTechConfAuthor),
                 "snowcamp", Map.of("title", snowcampConfTitle, "author", snowcampConfAuthor),
                 "daminouTech", Map.of("title", daminouTechConfTitle, "author", daminouTechConfAuthor),
@@ -40,7 +40,7 @@ public class AcmeResource {
 
     @Path("/{event}")
     @GET
-    public String hellodevoxxFR(String event) {
+    public String helloEvent(String event) {
         return hello(confByEvent.getOrDefault(event, confByEvent.get("dummy")));
     }
 

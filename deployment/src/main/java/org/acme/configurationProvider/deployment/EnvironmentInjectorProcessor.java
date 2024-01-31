@@ -35,8 +35,6 @@ public class EnvironmentInjectorProcessor {
             return;
         }
         logger.warn("You should not use this extension if you don't need it.");
-
-
     }
 
 }
