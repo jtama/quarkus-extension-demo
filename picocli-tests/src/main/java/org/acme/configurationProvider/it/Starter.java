@@ -11,9 +11,9 @@ public class Starter implements Runnable{
     @Inject
     Logger log;
 
-    @ConfigProperty(name = "env.snowcamp.title")
+    @ConfigProperty(name = "env.dummy.title")
     String snowcampConfTitle;
-    @ConfigProperty(name = "env.snowcamp.author")
+    @ConfigProperty(name = "env.dummy.author")
     String snowcampConfAuthor;
 
     @Override
