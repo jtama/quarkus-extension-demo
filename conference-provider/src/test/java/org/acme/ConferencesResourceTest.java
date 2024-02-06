@@ -34,7 +34,7 @@ public class ConferencesResourceTest {
                 .extract()
                 .body()
                 .as(ConferencesResource.Conference.class);
-        Assertions.assertEquals("Why does Elmyra Duff love animals so much ?", result.title());
+        Assertions.assertEquals("Why does Elmyra Duff loves animals so much ?", result.title());
         Assertions.assertEquals("Malvin le Martien", result.author());
     }
 

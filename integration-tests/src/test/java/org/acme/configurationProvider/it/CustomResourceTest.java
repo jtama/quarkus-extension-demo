@@ -28,7 +28,7 @@ public class CustomResourceTest {
                 .then()
                 .statusCode(200)
                 .extract();
-        Assertions.assertEquals("Welcome Malvin le Martien, that will present: \"Why does Elmyra Duff love animals so much ?\"",
+        Assertions.assertEquals("Welcome Malvin le Martien, that will present: \"Why does Elmyra Duff loves animals so much ?\"",
                 extract.body().asString());
     }
 }

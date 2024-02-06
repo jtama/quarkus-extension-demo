@@ -22,7 +22,7 @@ public class ConferencesResource {
                 "snowcamp", new Conference("Quarkus: Greener, Better, Faster, Stronger", "j.tama"),
                 "touraineTech", new Conference("Quarkus: Greener, Better, Faster, Stronger", "j.tama"),
                 "devoxxFR", new Conference("#RetourAuxSources : Le cache HTTP", "Hubert Sablonnière ❤"),
-                "dummy", new Conference("Why does Elmyra Duff love animals so much ?", "Malvin le Martien")
+                "dummy", new Conference("Why does Elmyra Duff loves animals so much ?", "Malvin le Martien")
         ));
     }
 
