@@ -68,6 +68,6 @@ public class AcmeConfigSource implements ConfigSource {
 
     @Override
     public String getName() {
-        return "AcmeConfigSource";
+        return AcmeConfigSource.class.getName();
     }
 }
