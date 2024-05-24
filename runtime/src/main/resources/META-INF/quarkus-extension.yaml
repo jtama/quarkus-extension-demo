@@ -1,7 +1,6 @@
 name: Configuration Provider
 description: Provides flawless configration for ACME Company ©. Will inject if exists, all @ConfigProperty starting with 'env.'
-group-id: org.acme
-artifact-id: configuration-provider
+artifact: ${project.groupId}:${project.artifactId}:${project.version}
 metadata:
   keywords:
     - Approximation Corrector

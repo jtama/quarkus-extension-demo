@@ -7,6 +7,7 @@ import io.quarkus.deployment.builditem.RunTimeConfigBuilderBuildItem;
 import org.acme.configurationProvider.runtime.AcmeConfigSourceFactoryBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.jandex.AnnotationInstance;
+import org.jboss.jandex.AnnotationValue;
 import org.jboss.logging.Logger;
 
 import java.util.List;
@@ -18,13 +19,16 @@ public class EnvironmentInjectorProcessor {
     @BuildStep
     void askForApplicationScan(ApplicationIndexBuildItem index,
                                  BuildProducer<AcmeEnvironmentBuildItem> buildProducer) {
-        index.getIndex().getAnnotations(ConfigProperty.class)
+        List<String> expectedEnvProps = index.getIndex().getAnnotations(ConfigProperty.class)
                 .stream()
                 .map(AnnotationInstance::values)
                 .flatMap(List::stream)
                 .filter(value -> value.asString().startsWith("env."))
-                .findFirst()
-                .ifPresent(annotationInstance -> buildProducer.produce(new AcmeEnvironmentBuildItem()));
+                .map(AnnotationValue::asString)
+                .toList();
+        if (!expectedEnvProps.isEmpty()) {
+            buildProducer.produce(new AcmeEnvironmentBuildItem(expectedEnvProps));
+        }
     }
 
     @BuildStep
