@@ -14,7 +14,7 @@ public class CustomResourceTest {
     @Test
     public void helloEndpoint_should_have_correct_header() {
         ExtractableResponse<Response> extract = given()
-                .when().get("/acme/dummy")
+                .when().get("/acme/rivieraDev")
                 .then()
                 .statusCode(200)
                 .extract();

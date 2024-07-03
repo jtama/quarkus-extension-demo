@@ -74,7 +74,7 @@ export class QwcConfigurationProviderCard extends QwcHotReloadElement {
 
     render() {
         if (!enabled) {
-            return html`<h2>This extension should not even be used</h2>`;
+            return html`<h2 style="color: red">💀 This extension should not even be used, please stop wasting resources ! 💀</h2>`;
         }
         if (this._providerURL) {
             return html`
@@ -123,7 +123,7 @@ export class QwcConfigurationProviderCard extends QwcHotReloadElement {
     _renderConfigDetails() {
         return html`
             <div>
-                <span>Configuration provider URL: <qui-badge icon="font-awesome-solid:link"><span>${this._providerURL}</span></qui-badge></span><br/>
+                <span>Configuration provider URL: <a href="${this._providerURL}"><vaadin-icon icon="font-awesome-solid:link"></vaadin-icon>${this._providerURL}</a></span><br/>
             </div>`;
     }
 
@@ -132,8 +132,8 @@ export class QwcConfigurationProviderCard extends QwcHotReloadElement {
         let utilsStrictIcon = strictUtils ? 'font-awesome-solid:bomb':'font-awesome-solid:truck-medical';
         return html`
             <div>
-                <span>Rest strict correction: <qui-badge icon="${restStrictIcon}"></qui-badge></span><br/>
-                <span>Utils strict correction <qui-badge icon="${utilsStrictIcon}"></qui-badge></span><br/>
+                <span>Rest strict correction: <vaadin-icon icon="${restStrictIcon}"></vaadin-icon></span><br/>
+                <span>Utils strict correction <vaadin-icon icon="${utilsStrictIcon}"></vaadin-icon></span><br/>
             </div>`;
     }
 

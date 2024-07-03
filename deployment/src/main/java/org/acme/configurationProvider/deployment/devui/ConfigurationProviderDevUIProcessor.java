@@ -12,6 +12,7 @@ import org.acme.configurationProvider.deployment.AcmeConfigurationBuildTimeConfi
 import org.acme.configurationProvider.deployment.AcmeEnvironmentBuildItem;
 import org.acme.configurationProvider.devui.ConfigurationProviderJsonRPCService;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ConfigurationProviderDevUIProcessor {
@@ -20,10 +21,11 @@ public class ConfigurationProviderDevUIProcessor {
     void createCard(BuildProducer<MenuPageBuildItem> menuProducer,
                     Optional<AcmeEnvironmentBuildItem> acmeEnvironmentBuildItem,
                     AcmeConfigurationBuildTimeConfiguration buildTimeConfiguration) {
+        System.out.println("greeeeeee");
         WebComponentPageBuilder environnementProviderPage = Page.webComponentPageBuilder().title("Environnement provider extension");
         // Menu
         MenuPageBuildItem menuPageBuildItem = new MenuPageBuildItem();
-        menuPageBuildItem.addBuildTimeData("enabled", buildTimeConfiguration.devservices.enabled);
+        menuPageBuildItem.addBuildTimeData("enabled", buildTimeConfiguration.devservices.enabled && acmeEnvironmentBuildItem.isPresent());
         menuPageBuildItem.addBuildTimeData("strictRest", buildTimeConfiguration.strict.isRestStrict);
         menuPageBuildItem.addBuildTimeData("strictUtils", buildTimeConfiguration.strict.isUtilsStrict);
         menuPageBuildItem.addPage(environnementProviderPage
@@ -36,8 +38,11 @@ public class ConfigurationProviderDevUIProcessor {
                             .icon("font-awesome-solid:hands-asl-interpreting");
                     menuPageBuildItem.addBuildTimeData("expectedEnv", item.getExpectedEnvProps());
                 },
-                () -> environnementProviderPage
-                        .icon("font-awesome-solid:biohazard"));
+                () -> {
+                    environnementProviderPage
+                        .icon("font-awesome-solid:biohazard");
+                    menuPageBuildItem.addBuildTimeData("expectedEnv", List.of());
+        });
         menuProducer.produce(menuPageBuildItem);
     }
 

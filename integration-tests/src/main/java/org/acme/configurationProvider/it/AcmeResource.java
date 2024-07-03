@@ -4,38 +4,39 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Path("/acme")
 public class AcmeResource {
 
-    private final Map<String, Map<String, String>> confByEvent;
+    private final Map<String, Map<String, String>> confByEvent = new HashMap<>();
 
-    AcmeResource(@ConfigProperty(name = "env.touraineTech.title")
-                         String touraineTechConfTitle,
-                         @ConfigProperty(name = "env.touraineTech.author")
-                         String touraineTechConfAuthor,
-                         @ConfigProperty(name = "env.snowcamp.title")
+    AcmeResource(@ConfigProperty(name = "env.rivieradev.title")
+                         String rivieraDevConfTitle,
+                         @ConfigProperty(name = "env.rivieradev.author")
+                         String rivieraDevConfAuthor,
+                         @ConfigProperty(name = "env.devoxxfr.title")
                          String snowcampConfTitle,
-                         @ConfigProperty(name = "env.snowcamp.author")
+                         @ConfigProperty(name = "env.devoxxfr.author")
                          String snowcampConfAuthor,
-                         @ConfigProperty(name = "env.maryCoreTech.title")
+                         @ConfigProperty(name = "env.marycoretech.title")
                          String maryCoreTechConfTitle,
-                         @ConfigProperty(name = "env.maryCoreTech.author")
+                         @ConfigProperty(name = "env.marycoretech.author")
                          String maryCoreTechConfAuthor,
-                         @ConfigProperty(name = "env.daminouTech.title")
+                         @ConfigProperty(name = "env.daminoutech.title")
                          String daminouTechConfTitle,
-                         @ConfigProperty(name = "env.daminouTech.author")
+                         @ConfigProperty(name = "env.daminoutech.author")
                          String daminouTechConfAuthor,
                          @ConfigProperty(name = "env.dummy.title")
                          String dummyConfTitle,
                          @ConfigProperty(name = "env.dummy.author")
                          String dummyConfAuthor) {
-        confByEvent = Map.of("touraineTech", Map.of("title", touraineTechConfTitle, "author", touraineTechConfAuthor),
+        confByEvent.putAll(Map.of("rivieraDev", Map.of("title", rivieraDevConfTitle, "author", rivieraDevConfAuthor),
                 "maryCoreTech", Map.of("title", maryCoreTechConfTitle, "author", maryCoreTechConfAuthor),
-                "snowcamp", Map.of("title", snowcampConfTitle, "author", snowcampConfAuthor),
+                "devoxxFR", Map.of("title", snowcampConfTitle, "author", snowcampConfAuthor),
                 "daminouTech", Map.of("title", daminouTechConfTitle, "author", daminouTechConfAuthor),
-                "dummy", Map.of("title", dummyConfTitle, "author", dummyConfAuthor));
+                "dummy", Map.of("title", dummyConfTitle, "author", dummyConfAuthor)));
     }
 
     @Path("/{event}")
