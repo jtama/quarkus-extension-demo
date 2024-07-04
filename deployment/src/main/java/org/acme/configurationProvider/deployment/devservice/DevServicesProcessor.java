@@ -15,6 +15,7 @@ import io.quarkus.devservices.common.ContainerAddress;
 import io.quarkus.devservices.common.ContainerLocator;
 import io.quarkus.runtime.configuration.ConfigUtils;
 import org.acme.configurationProvider.deployment.AcmeConfigurationBuildTimeConfiguration;
+import org.acme.configurationProvider.deployment.AcmeEnvironmentBuildItem;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
@@ -45,6 +46,7 @@ public class DevServicesProcessor {
             DockerStatusBuildItem dockerStatusBuildItem,
             LaunchModeBuildItem launchMode,
             AcmeConfigurationBuildTimeConfiguration buildTimeConfiguration,
+            AcmeEnvironmentBuildItem acmeEnvironmentBuildItem,
             Optional<ConsoleInstalledBuildItem> consoleInstalledBuildItem,
             CuratedApplicationShutdownBuildItem closeBuildItem,
             LoggingSetupBuildItem loggingSetupBuildItem,
@@ -54,7 +56,7 @@ public class DevServicesProcessor {
                 (launchMode.isTest() ? "(test) " : "") + "AcmeEnv Dev Services Starting:",
                 consoleInstalledBuildItem, loggingSetupBuildItem);
         try {
-            devService = startAcmeEnv(dockerStatusBuildItem, launchMode, devServicesConfig.timeout, buildTimeConfiguration.devservices);
+            devService = startAcmeEnv(dockerStatusBuildItem, launchMode, devServicesConfig.timeout, acmeEnvironmentBuildItem, buildTimeConfiguration.devservices);
             if (devService == null) {
                 compressor.closeAndDumpCaptured();
             } else {
@@ -112,10 +114,17 @@ public class DevServicesProcessor {
             DockerStatusBuildItem dockerStatusBuildItem,
             LaunchModeBuildItem launchMode,
             Optional<Duration> timeout,
+            AcmeEnvironmentBuildItem acmeEnvironmentBuildItem,
             DevServicesConfig devServicesConfig) {
         if (!devServicesConfig.enabled) {
             // explicitly disabled
             LOGGER.debug("Not starting dev services for AcmeEnv, as it has been disabled in the config.");
+            return null;
+        }
+
+        // Check if quarkus.environment.url is set
+        if (acmeEnvironmentBuildItem == null) {
+            LOGGER.debug("We said you should remove the extension");
             return null;
         }
 
@@ -125,7 +134,7 @@ public class DevServicesProcessor {
             return null;
         }
 
-        if (!dockerStatusBuildItem.isDockerAvailable()) {
+        if (!dockerStatusBuildItem.isContainerRuntimeAvailable()) {
             LOGGER.warnf("Docker isn't working, please configure the AcmeEnv Url property (%s).", ACME_ENV_URL_KEY);
             return null;
         }

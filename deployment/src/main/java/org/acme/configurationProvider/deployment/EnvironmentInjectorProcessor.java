@@ -4,6 +4,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationIndexBuildItem;
 import io.quarkus.deployment.builditem.RunTimeConfigBuilderBuildItem;
+import io.quarkus.deployment.builditem.RunTimeConfigurationDefaultBuildItem;
 import org.acme.configurationProvider.runtime.AcmeConfigSourceFactoryBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.jandex.AnnotationInstance;
@@ -33,12 +34,18 @@ public class EnvironmentInjectorProcessor {
 
     @BuildStep
     void envConfigSourceFactory(AcmeEnvironmentBuildItem acmeEnvironmentBuildItem,
-                                BuildProducer<RunTimeConfigBuilderBuildItem> runTimeConfigBuilder) {
+                                BuildProducer<RunTimeConfigBuilderBuildItem> runTimeConfigBuilder,
+                                BuildProducer<RunTimeConfigurationDefaultBuildItem> runTimeConfigurationDefaultBuildItemBuildProducer) {
         if (acmeEnvironmentBuildItem != null) {
             runTimeConfigBuilder.produce(new RunTimeConfigBuilderBuildItem(AcmeConfigSourceFactoryBuilder.class.getName()));
             return;
         }
         logger.warn("You should not use this extension if you don't need it.");
+        produceDefaultExpected(runTimeConfigurationDefaultBuildItemBuildProducer);
+    }
+
+    private void produceDefaultExpected(BuildProducer<RunTimeConfigurationDefaultBuildItem> runTimeConfigurationDefaultBuildItemBuildProducer) {
+        runTimeConfigurationDefaultBuildItemBuildProducer.produce(new RunTimeConfigurationDefaultBuildItem("acme.environment.url","nope"));
     }
 
 }
