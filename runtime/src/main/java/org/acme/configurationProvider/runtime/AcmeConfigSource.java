@@ -50,8 +50,7 @@ public class AcmeConfigSource implements ConfigSource {
 
     @Override
     public String getValue(String propertyName) {
-        if (Predicate.not(isAcme)
-                .test(propertyName))
+        if (Predicate.not(isAcme).test(propertyName))
             return null;
 
         // Now create matcher object.

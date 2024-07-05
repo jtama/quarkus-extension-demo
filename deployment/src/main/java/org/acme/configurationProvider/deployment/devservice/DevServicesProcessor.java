@@ -128,7 +128,7 @@ public class DevServicesProcessor {
             return null;
         }
 
-        // Check if quarkus.environment.url is set
+        // Check if acme.environment.url is set
         if (ConfigUtils.isPropertyPresent(ACME_ENV_URL_KEY)) {
             LOGGER.debugf("Not starting dev services for AcmeEnv, the % is configured.", ACME_ENV_URL_KEY);
             return null;

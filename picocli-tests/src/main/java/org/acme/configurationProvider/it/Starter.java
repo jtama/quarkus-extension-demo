@@ -11,15 +11,15 @@ public class Starter implements Runnable{
     @Inject
     Logger log;
 
-    @ConfigProperty(name = "env.dummy.title")
-    String snowcampConfTitle;
-    @ConfigProperty(name = "env.dummy.author")
-    String snowcampConfAuthor;
+    @ConfigProperty(name = "env.rivieradev.title")
+    String rivieraDevConfTitle;
+    @ConfigProperty(name = "env.rivieradev.author")
+    String rivieraDevConfAuthor;
 
     @Override
     public void run() {
         log.info("********   WELCOME !     ********");
-        log.infof("Welcome %s, that will present: \"%s\"%n",snowcampConfAuthor, snowcampConfTitle);
+        log.infof("Welcome %s, that will present: \"%s\"%n",rivieraDevConfAuthor, rivieraDevConfTitle);
         log.info("*********************************");
     }
 }

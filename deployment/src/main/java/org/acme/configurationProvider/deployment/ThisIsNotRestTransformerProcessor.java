@@ -1,5 +1,25 @@
 package org.acme.configurationProvider.deployment;
 
+import java.util.List;
+import java.util.function.BooleanSupplier;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+
+import org.acme.configurationProvider.runtime.ThisIsNotRestLogger;
+import org.jboss.jandex.AnnotationInstance;
+import org.jboss.jandex.AnnotationTarget;
+import org.jboss.jandex.AnnotationTransformation;
+import org.jboss.jandex.AnnotationValue;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.MethodInfo;
+import org.jboss.logging.Logger;
+
 import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -7,20 +27,6 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationIndexBuildItem;
 import io.quarkus.resteasy.reactive.server.spi.AnnotationsTransformerBuildItem;
-import jakarta.ws.rs.*;
-import org.acme.configurationProvider.runtime.ThisIsNotRestLogger;
-import org.jboss.jandex.AnnotationTarget;
-import org.jboss.jandex.AnnotationValue;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.MethodInfo;
-import org.jboss.logging.Logger;
-import org.jboss.resteasy.reactive.common.processor.transformation.AnnotationsTransformer;
-import org.jboss.resteasy.reactive.common.processor.transformation.Transformation;
-
-import java.util.List;
-import java.util.function.BooleanSupplier;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 /**
  * You are NOT doing REST
@@ -51,42 +57,37 @@ class ThisIsNotRestTransformerProcessor {
             ThisIsNotRestLogger thisIsNotRestLogger) {
         if (compileConfiguration.strict.isRestStrict) {
             logger.infof("Correcting your approximations if any. We'll see at runtime !");
-            transformers.produce(new AnnotationsTransformerBuildItem(new RestMethodCorrector()));
+            transformers.produce(new AnnotationsTransformerBuildItem(getAnnotationTransformer()));
             return;
         }
+
         Stream<MethodInfo> restEndpoints = applicationIndexBuildItem.getIndex().getKnownClasses().stream()
                 .flatMap(classInfo -> classInfo.methods().stream())
                 .filter(isRestEndpoint);
+
         thisIsNotRestLogger.youAreNotDoingREST(restEndpoints
                 .map(this::getMessage)
                 .toList());
     }
 
     private String getMessage(MethodInfo methodInfo) {
-        return "You think you method \"%s#%s\" is doing rest but it's more JSON over HTTP actually.".formatted(methodInfo.declaringClass().toString(), methodInfo.toString());
+        return "You think you method \"%s#%s\" is doing rest but it's more JSON over HTTP actually."
+                .formatted(methodInfo.declaringClass().toString(), methodInfo.toString());
     }
 
-    private static class RestMethodCorrector implements AnnotationsTransformer {
-
-        public static final DotName RESPONSE_HEADER = DotName.createSimple(org.jboss.resteasy.reactive.ResponseHeader.class);
-        public static final AnnotationValue HEADER_NAME = AnnotationValue.createStringValue("name","X-ApproximationCorrector");
-        public static final AnnotationValue HEADER_VALUE = AnnotationValue.createStringValue("ignored","It's more JSON over http really.");
-        public static final AnnotationValue HEADER_VALUES = AnnotationValue.createArrayValue("value", List.of(HEADER_VALUE));
-
-        @Override
-        public boolean appliesTo(AnnotationTarget.Kind kind) {
-            return AnnotationTarget.Kind.METHOD == kind;
-        }
-
-        @Override
-        public void transform(AnnotationsTransformer.TransformationContext context) {
-            MethodInfo method = context.getTarget().asMethod();
-            if (isRestEndpoint.test(method)) {
-                Transformation transform = context.transform();
-                transform.add(RESPONSE_HEADER,HEADER_NAME, HEADER_VALUES);
-                transform.done();
-            }
-        }
-
+    private AnnotationTransformation getAnnotationTransformer() {
+        return AnnotationTransformation.builder()
+                .whenDeclaration(declaration -> declaration.kind() == AnnotationTarget.Kind.METHOD)
+                .whenDeclaration(declaration -> isRestEndpoint.test(declaration.asMethod()))
+                .transform(context -> context.add(AnnotationInstance.builder(RESPONSE_HEADER)
+                        .add(HEADER_NAME)
+                        .add(HEADER_VALUES)
+                        .buildWithTarget(context.declaration())));
     }
+
+    private static final DotName RESPONSE_HEADER = DotName.createSimple(org.jboss.resteasy.reactive.ResponseHeader.class);
+    private static final AnnotationValue HEADER_NAME = AnnotationValue.createStringValue("name", "X-ApproximationCorrector");
+    private static final AnnotationValue HEADER_VALUE = AnnotationValue.createStringValue("ignored",
+            "It's more JSON over http really.");
+    private static final AnnotationValue HEADER_VALUES = AnnotationValue.createArrayValue("value", List.of(HEADER_VALUE));
 }
