@@ -71,7 +71,7 @@ class ThisIsNotRestTransformerProcessor {
     }
 
     private String getMessage(MethodInfo methodInfo) {
-        return "You think you method \"%s#%s\" is doing rest but it's more JSON over HTTP actually."
+        return "You think your method \"%s#%s\" is doing rest but it's more JSON over HTTP actually."
                 .formatted(methodInfo.declaringClass().toString(), methodInfo.toString());
     }
 
