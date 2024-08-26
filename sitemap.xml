@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://docs.acme.com/acme-configuration-provider/main/includes/acme.html</loc>
-<lastmod>2024-08-26T12:09:31.331Z</lastmod>
-</url>
-<url>
 <loc>https://docs.acme.com/acme-configuration-provider/main/includes/attributes.html</loc>
-<lastmod>2024-08-26T12:09:31.331Z</lastmod>
+<lastmod>2024-08-26T13:25:27.050Z</lastmod>
 </url>
 <url>
 <loc>https://docs.acme.com/acme-configuration-provider/main/index.html</loc>
-<lastmod>2024-08-26T12:09:31.331Z</lastmod>
+<lastmod>2024-08-26T13:25:27.050Z</lastmod>
 </url>
 </urlset>
