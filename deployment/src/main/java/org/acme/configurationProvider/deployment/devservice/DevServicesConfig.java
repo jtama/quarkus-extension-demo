@@ -2,16 +2,17 @@ package org.acme.configurationProvider.deployment.devservice;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
+import io.smallrye.config.WithDefault;
 
 @ConfigGroup
-public class DevServicesConfig {
+public interface DevServicesConfig {
 
     /**
      * Enable or disable Dev Services explicitly. Dev Services are automatically enabled unless {@code acme.environment.url} is
      * set.
      */
-    @ConfigItem(defaultValue = "true")
-    public Boolean enabled;
+    @WithDefault("true")
+    Boolean enabled();
 
     /**
      * The Acme configuration value provider container image to use.
@@ -23,6 +24,6 @@ public class DevServicesConfig {
      *
      * @asciidoclet
      */
-    @ConfigItem(defaultValue = "quay.io/jtama/acme-provider:native")
-    public String imageName;
+    @WithDefault("quay.io/jtama/acme-provider:native")
+    String imageName();
 }

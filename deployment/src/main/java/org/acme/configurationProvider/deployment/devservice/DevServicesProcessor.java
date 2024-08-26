@@ -56,7 +56,7 @@ public class DevServicesProcessor {
                 (launchMode.isTest() ? "(test) " : "") + "AcmeEnv Dev Services Starting:",
                 consoleInstalledBuildItem, loggingSetupBuildItem);
         try {
-            devService = startAcmeEnv(dockerStatusBuildItem, launchMode, devServicesConfig.timeout, acmeEnvironmentBuildItem, buildTimeConfiguration.devservices);
+            devService = startAcmeEnv(dockerStatusBuildItem, launchMode, devServicesConfig.timeout, acmeEnvironmentBuildItem, buildTimeConfiguration.devservices());
             if (devService == null) {
                 compressor.closeAndDumpCaptured();
             } else {
@@ -116,7 +116,7 @@ public class DevServicesProcessor {
             Optional<Duration> timeout,
             AcmeEnvironmentBuildItem acmeEnvironmentBuildItem,
             DevServicesConfig devServicesConfig) {
-        if (!devServicesConfig.enabled) {
+        if (!devServicesConfig.enabled()) {
             // explicitly disabled
             LOGGER.debug("Not starting dev services for AcmeEnv, as it has been disabled in the config.");
             return null;
@@ -146,7 +146,7 @@ public class DevServicesProcessor {
         // Starting the server
         final Supplier<DevServicesResultBuildItem.RunningDevService> defaultAcmeEnvBrokerSupplier = () -> {
             AcmeEnvContainer container = new AcmeEnvContainer(
-                    DockerImageName.parse(devServicesConfig.imageName));
+                    DockerImageName.parse(devServicesConfig.imageName()));
 
             ConfigureUtil.configureSharedNetwork(container, "acmeEnv");
             container.withLabel(DEV_SERVICE_LABEL, DEV_SERVICE_LABEL);

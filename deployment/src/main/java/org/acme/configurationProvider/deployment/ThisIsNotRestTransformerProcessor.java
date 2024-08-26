@@ -55,7 +55,7 @@ class ThisIsNotRestTransformerProcessor {
             ApplicationIndexBuildItem applicationIndexBuildItem,
             BuildProducer<AnnotationsTransformerBuildItem> transformers,
             ThisIsNotRestLogger thisIsNotRestLogger) {
-        if (compileConfiguration.strict.isRestStrict) {
+        if (compileConfiguration.strict().isRestStrict()) {
             logger.infof("Correcting your approximations if any. We'll see at runtime !");
             transformers.produce(new AnnotationsTransformerBuildItem(getAnnotationTransformer()));
             return;

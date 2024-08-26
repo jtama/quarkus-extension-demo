@@ -4,9 +4,11 @@ import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.WithDefault;
+import io.smallrye.config.WithName;
 
 @ConfigGroup
-public class StrictBuildTimeConfiguration {
+public interface StrictBuildTimeConfiguration {
 
     /**
      * Should the extension be strict when correcting response headers.
@@ -18,8 +20,9 @@ public class StrictBuildTimeConfiguration {
      *
      * @asciidoclet
      */
-    @ConfigItem(name = "rest", defaultValue = "false")
-    public Boolean isRestStrict;
+    @WithName("rest")
+    @WithDefault("false")
+    Boolean isRestStrict();
 
     /**
      * Should the extension be strict when correcting utils classes.
@@ -31,7 +34,8 @@ public class StrictBuildTimeConfiguration {
      *
      * @asciidoclet
      */
-    @ConfigItem(name = "utils", defaultValue = "false")
-    public Boolean isUtilsStrict;
+    @WithName("utils")
+    @WithDefault("false")
+    Boolean isUtilsStrict();
 
 }
