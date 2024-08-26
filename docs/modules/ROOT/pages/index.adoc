@@ -48,4 +48,4 @@ include::{examplesdir}/FooBar.java[]
 [[extension-configuration-reference]]
 == Extension Configuration Reference
 
-include::includes/acme.adoc[leveloffset=+1,opts=optional]
+include::includes/configuration-provider.adoc[leveloffset=+1,opts=optional]
