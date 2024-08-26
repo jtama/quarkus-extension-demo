@@ -34,7 +34,7 @@ class NoUtilsClassTransformerProcessor {
                 .filter(info -> info.name().toString().endsWith("Utils"))
                 .map(info -> info.name().toString())
                 .toList();
-        if (compileConfiguration.strict.isUtilsStrict) {
+        if (compileConfiguration.strict().isUtilsStrict()) {
             logger.infof("Someone may not be happy in the future, but you were warned...");
             for (String className : utilsClasses) {
                 transformers.produce(new BytecodeTransformerBuildItem(className,

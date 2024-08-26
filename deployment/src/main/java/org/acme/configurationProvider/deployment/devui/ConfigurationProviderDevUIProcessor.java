@@ -25,9 +25,9 @@ public class ConfigurationProviderDevUIProcessor {
         WebComponentPageBuilder environnementProviderPage = Page.webComponentPageBuilder().title("Environnement provider extension");
         // Menu
         MenuPageBuildItem menuPageBuildItem = new MenuPageBuildItem();
-        menuPageBuildItem.addBuildTimeData("enabled", buildTimeConfiguration.devservices.enabled && acmeEnvironmentBuildItem.isPresent());
-        menuPageBuildItem.addBuildTimeData("strictRest", buildTimeConfiguration.strict.isRestStrict);
-        menuPageBuildItem.addBuildTimeData("strictUtils", buildTimeConfiguration.strict.isUtilsStrict);
+        menuPageBuildItem.addBuildTimeData("enabled", buildTimeConfiguration.devservices().enabled() && acmeEnvironmentBuildItem.isPresent());
+        menuPageBuildItem.addBuildTimeData("strictRest", buildTimeConfiguration.strict().isRestStrict());
+        menuPageBuildItem.addBuildTimeData("strictUtils", buildTimeConfiguration.strict().isUtilsStrict());
         menuPageBuildItem.addPage(environnementProviderPage
                 .icon("font-awesome-solid:")
                 .title("Acme Environment")
