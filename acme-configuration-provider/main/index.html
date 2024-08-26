@@ -206,7 +206,158 @@ public class FooBar {
 <div class="sect1">
 <h2 id="extension-configuration-reference"><a class="anchor" href="#extension-configuration-reference"></a>Extension Configuration Reference</h2>
 <div class="sectionbody">
-
+<div class="paragraph configuration-legend">
+<p><span class="icon"><i class="fa fa-lock" title="Fixed at build time"></i></span> Configuration property fixed at build time - All other configuration properties are overridable at runtime</p>
+</div>
+<table class="tableblock frame-all grid-all stretch configuration-reference searchable">
+<colgroup>
+<col style="width: 80%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><span class="header-title">Configuration property</span></p></th>
+<th class="tableblock halign-left valign-middle"><p class="tableblock">Type</p></th>
+<th class="tableblock halign-left valign-middle"><p class="tableblock">Default</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="icon"><i class="fa fa-lock" title="Fixed at build time"></i></span> <a id="configuration-provider_acme-devservices-enabled"></a> <span class="property-path"><code>acme.devservices.enabled</code></span></p>
+</div>
+<div class="openblock description">
+<div class="content">
+<div class="paragraph">
+<p>Enable or disable Dev Services explicitly. Dev Services are automatically enabled unless <code>acme.environment.url</code> is set.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code>ACME_DEVSERVICES_ENABLED</code></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="icon"><i class="fa fa-lock" title="Fixed at build time"></i></span> <a id="configuration-provider_acme-devservices-image-name"></a> <span class="property-path"><code>acme.devservices.image-name</code></span></p>
+</div>
+<div class="openblock description">
+<div class="content">
+<div class="paragraph">
+<p>The Acme configuration value provider container image to use.
+&lt;p&gt;</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Details about default image on <a href="https://quay.io/repository/jtama/acme-provider/manifest/sha256:3eca3fe7aedf4bfe8b3213b67c3449c87bc2ab10ae264f681d429ca6c274471f?tab=layers">Docker Repository on Quay</a></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code>ACME_DEVSERVICES_IMAGE_NAME</code></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>quay.io/jtama/acme-provider:native</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="icon"><i class="fa fa-lock" title="Fixed at build time"></i></span> <a id="configuration-provider_acme-strict-rest"></a> <span class="property-path"><code>acme.strict.rest</code></span></p>
+</div>
+<div class="openblock description">
+<div class="content">
+<div class="paragraph">
+<p>Should the extension be strict when correcting response headers.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If set to <code>true</code> all response will have added headers, otherwise a simple warning will be displayed at application startup.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code>ACME_STRICT_REST</code></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="icon"><i class="fa fa-lock" title="Fixed at build time"></i></span> <a id="configuration-provider_acme-strict-utils"></a> <span class="property-path"><code>acme.strict.utils</code></span></p>
+</div>
+<div class="openblock description">
+<div class="content">
+<div class="paragraph">
+<p>Should the extension be strict when correcting utils classes.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If set to <code>true</code> all targeted class will be augmented, otherwise a simple warning will be displayed at application startup.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code>ACME_STRICT_UTILS</code></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="configuration-provider_acme-environment-url"></a> <span class="property-path"><code>acme.environment.url</code></span></p>
+</div>
+<div class="openblock description">
+<div class="content">
+<div class="paragraph">
+<p>The environment provider server URL.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Value must be a valid <code>URI</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code>ACME_ENVIRONMENT_URL</code></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java/net/URI.html">URI</a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">required <span class="icon"><i class="fa fa-exclamation-circle" title="Configuration property is required"></i></span></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </article>
