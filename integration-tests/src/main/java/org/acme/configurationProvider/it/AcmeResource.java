@@ -6,11 +6,12 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Path("/acme")
 public class AcmeResource {
 
-    private final Map<String, Map<String, String>> confByEvent = new HashMap<>();
+    private static final Map<String, Map<String, String>> confByEvent = new HashMap<>();
 
     AcmeResource(@ConfigProperty(name = "env.rivieradev.title")
                          String rivieraDevConfTitle,
@@ -41,11 +42,21 @@ public class AcmeResource {
 
     @Path("/{event}")
     @GET
-    public String helloEvent(String event) {
-        return hello(confByEvent.getOrDefault(event, confByEvent.get("dummy")));
+    public Event helloEvent(String event) {
+        return Event.fromMap(confByEvent.getOrDefault(event, confByEvent.get("dummy")));
     }
 
-    private String hello(Map<String, String> conf) {
-        return "Welcome %s, that will present: \"%s\"".formatted(conf.get("author"), conf.get("title"));
+    private record Event(String title, String author, String message) {
+
+        public Event {
+            Objects.requireNonNull(title);
+            Objects.requireNonNull(author);
+            message = "Welcome %s, that will present: \"%s\"".formatted(author, title);
+        }
+
+        public static Event fromMap(Map<String, String> conf) {
+            return new Event(conf.get("title"), conf.get("author"), null);
+        }
+
     }
 }
