@@ -150,14 +150,14 @@ public class DevServicesProcessor {
 
             ConfigureUtil.configureSharedNetwork(container, "acmeEnv");
             container.withLabel(DEV_SERVICE_LABEL, DEV_SERVICE_LABEL);
-            container.addEnv("CONFERENCE_maryCoreTech_TITLE", "A mandonné, ça fatigue !");
+            container.addEnv("CONFERENCE_maryCoreTech_TITLE", "Kafka, à mandonné, ça fatigue !");
             container.addEnv("CONFERENCE_maryCoreTech_AUTHOR", "Myra Cool");
-            container.addEnv("CONFERENCE_daminouTech_TITLE", "Tchou la bise !");
+            container.addEnv("CONFERENCE_daminouTech_TITLE", "L'histoire de l'informatique est un oignon!");
             container.addEnv("CONFERENCE_daminouTech_AUTHOR", "Super Daminou");
             container.addEnv("CONFERENCE_rivieraDev_TITLE", "Quarkus: Greener, Better, Faster, Stronger");
             container.addEnv("CONFERENCE_rivieraDev_AUTHOR", "j.tama");
-            container.addEnv("CONFERENCE_devoxxFR_AUTHOR", "Hubert Sablonnière ❤");
-            container.addEnv("CONFERENCE_devoxxFR_TITLE", "#RetourAuxSources : Le cache HTTP");
+            container.addEnv("CONFERENCE_bdxJUG_AUTHOR", "Remi Forax ❤");
+            container.addEnv("CONFERENCE_bdxJUG_TITLE", "Java 22+");
 
             timeout.ifPresent(container::withStartupTimeout);
 

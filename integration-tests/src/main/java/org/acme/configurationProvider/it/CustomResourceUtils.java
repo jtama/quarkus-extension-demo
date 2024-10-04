@@ -17,6 +17,7 @@
 package org.acme.configurationProvider.it;
 
 
+import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 
@@ -25,7 +26,7 @@ public class CustomResourceUtils {
     // add some rest methods here
 
     @GET
-    public String hello() {
-        return "Hello custom";
+    public Uni<String> hello() {
+        return Uni.createFrom().item("Hello custom");
     }
 }

@@ -1,5 +1,6 @@
 package org.acme.configurationProvider.it;
 
+import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -17,9 +18,9 @@ public class AcmeResource {
                          String rivieraDevConfTitle,
                          @ConfigProperty(name = "env.rivieradev.author")
                          String rivieraDevConfAuthor,
-                         @ConfigProperty(name = "env.devoxxfr.title")
+                         @ConfigProperty(name = "env.bdxjug.title")
                          String snowcampConfTitle,
-                         @ConfigProperty(name = "env.devoxxfr.author")
+                         @ConfigProperty(name = "env.bdxjug.author")
                          String snowcampConfAuthor,
                          @ConfigProperty(name = "env.marycoretech.title")
                          String maryCoreTechConfTitle,
@@ -42,8 +43,8 @@ public class AcmeResource {
 
     @Path("/{event}")
     @GET
-    public Event helloEvent(String event) {
-        return Event.fromMap(confByEvent.getOrDefault(event, confByEvent.get("dummy")));
+    public Uni<Event> helloEvent(String event) {
+        return Uni.createFrom().item(Event.fromMap(confByEvent.getOrDefault(event, confByEvent.get("dummy"))));
     }
 
     private record Event(String title, String author, String message) {
