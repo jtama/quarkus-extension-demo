@@ -14,30 +14,26 @@ public class AcmeResource {
 
     private static final Map<String, Map<String, String>> confByEvent = new HashMap<>();
 
-    AcmeResource(@ConfigProperty(name = "env.rivieradev.title")
-                         String rivieraDevConfTitle,
-                         @ConfigProperty(name = "env.rivieradev.author")
-                         String rivieraDevConfAuthor,
-                         @ConfigProperty(name = "env.bdxjug.title")
-                         String snowcampConfTitle,
-                         @ConfigProperty(name = "env.bdxjug.author")
-                         String snowcampConfAuthor,
-                         @ConfigProperty(name = "env.marycoretech.title")
-                         String maryCoreTechConfTitle,
-                         @ConfigProperty(name = "env.marycoretech.author")
-                         String maryCoreTechConfAuthor,
-                         @ConfigProperty(name = "env.daminoutech.title")
-                         String daminouTechConfTitle,
-                         @ConfigProperty(name = "env.daminoutech.author")
-                         String daminouTechConfAuthor,
+    AcmeResource(@ConfigProperty(name = "env.jtama.title")
+                         String jtamaConfTitle,
+                         @ConfigProperty(name = "env.jtama.author")
+                         String jtamaConfAuthor,
+                         @ConfigProperty(name = "env.smetayer.title")
+                         String smetayerConfTitle,
+                         @ConfigProperty(name = "env.smetayer.author")
+                         String smetayerConfAuthor,
+                         @ConfigProperty(name = "env.dlib.title")
+                         String dlgibConfTitle,
+                         @ConfigProperty(name = "env.dlib.author")
+                         String dlgibConfAuthor,
                          @ConfigProperty(name = "env.dummy.title")
                          String dummyConfTitle,
                          @ConfigProperty(name = "env.dummy.author")
                          String dummyConfAuthor) {
-        confByEvent.putAll(Map.of("rivieraDev", Map.of("title", rivieraDevConfTitle, "author", rivieraDevConfAuthor),
-                "maryCoreTech", Map.of("title", maryCoreTechConfTitle, "author", maryCoreTechConfAuthor),
-                "devoxxFR", Map.of("title", snowcampConfTitle, "author", snowcampConfAuthor),
-                "daminouTech", Map.of("title", daminouTechConfTitle, "author", daminouTechConfAuthor),
+        confByEvent.putAll(Map.of(
+                "smetayer", Map.of("title", smetayerConfTitle, "author", smetayerConfAuthor),
+                "jtama", Map.of("title", jtamaConfTitle, "author", jtamaConfAuthor),
+                "dlgib", Map.of("title", dlgibConfTitle, "author", dlgibConfAuthor),
                 "dummy", Map.of("title", dummyConfTitle, "author", dummyConfAuthor)));
     }
 

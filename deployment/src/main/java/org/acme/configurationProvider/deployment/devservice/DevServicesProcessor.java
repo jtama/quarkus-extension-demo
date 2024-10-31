@@ -150,8 +150,8 @@ public class DevServicesProcessor {
 
             ConfigureUtil.configureSharedNetwork(container, "acmeEnv");
             container.withLabel(DEV_SERVICE_LABEL, DEV_SERVICE_LABEL);
-            container.addEnv("CONFERENCE_maryCoreTech_TITLE", "Kafka, à mandonné, ça fatigue !");
-            container.addEnv("CONFERENCE_maryCoreTech_AUTHOR", "Myra Cool");
+            container.addEnv("CONFERENCE_devfest_TITLE", "Comment nous avons transformé les Restos du Coeur en Cloud Provider");
+            container.addEnv("CONFERENCE_devfest_AUTHOR", "Julien Briault");
             container.addEnv("CONFERENCE_daminouTech_TITLE", "L'histoire de l'informatique est un oignon!");
             container.addEnv("CONFERENCE_daminouTech_AUTHOR", "Super Daminou");
             container.addEnv("CONFERENCE_rivieraDev_TITLE", "Quarkus: Greener, Better, Faster, Stronger");
