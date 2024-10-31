@@ -23,11 +23,11 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>modules/ROOT/examples</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
+                <version>${quarkus.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -35,6 +35,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-config-doc-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <targetDirectory>${project.basedir}/modules/ROOT/pages/includes/</targetDirectory>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>it.ozimov</groupId>
@@ -54,19 +62,11 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-config-doc-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <targetDirectory>${project.basedir}/modules/ROOT/pages/includes/</targetDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
-                        <phase>prepare-package</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -77,22 +77,6 @@
                                     <directory>${project.basedir}/templates/includes</directory>
                                     <include>attributes.adoc</include>
                                     <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-images</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/generated-docs/_images/</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.basedir}/modules/ROOT/assets/images/</directory>
-                                    <filtering>false</filtering>
                                 </resource>
                             </resources>
                         </configuration>
