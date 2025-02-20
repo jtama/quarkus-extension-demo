@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../../_/css/site.css">
 <!-- This wasn't displaying icons, and it was breaking the fonts on the admonitions   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">-->
     <script>var uiRootPath = '../../../_'</script>
+    <script type="module" src="../../../_/js/vendor/search-wc.js"></script>
 <link rel="icon" href="../../../_/img/favicon-32x32.png" type="image/png">
   </head>
   <body class="article">
@@ -107,24 +108,38 @@
   </aside>
 </div>
 <main class="article">
-<div class="toolbar" role="navigation">
+  <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
 </nav>
+<qs-form server=""
+         language="en"
+         initial-timeout="1500"
+         more-timeout="2500"
+         min-chars="3"
+         origin-filter="quarkiverse-hub"
+>
+  <div class="search">
+    <input name="q" type="search" placeholder="Search by keyword" autocomplete="off">
+  </div>
+</qs-form>
   <div class="edit-this-page"><a href="file:///antora/docs/modules/ROOT/pages/includes/attributes.adoc">Edit this Page</a></div>
 </div>
-  <div class="content">
-<aside class="toc sidebar" data-title="Contents" data-levels="2">
+
+  <qs-target class="qs-target" search-results-title="Search results:">
+    <div class="content">
+        <aside class="toc sidebar" data-title="Contents" data-levels="2">
  <div class="sidebar">
   <div class="toc-menu"></div>
      <a class="git-link" href="https://github.com/jtama/quarkus-extension-demo"><div class="git-link-logo"></div><div>Extension source</div></a>
  </div>
 </aside>
-<article class="doc">
+        <article class="doc">
 
 </article>
-  </div>
+    </div>
+  </qs-target>
 </main>
 </div>
 <footer class="footer">
