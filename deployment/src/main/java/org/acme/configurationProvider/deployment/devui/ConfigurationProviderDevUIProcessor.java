@@ -46,7 +46,6 @@ public class ConfigurationProviderDevUIProcessor {
         menuProducer.produce(menuPageBuildItem);
     }
 
-    @BuildStep(onlyIf = IsDevelopment.class)
     JsonRPCProvidersBuildItem createJsonRPCServiceForCache() {
         return new JsonRPCProvidersBuildItem(ConfigurationProviderJsonRPCService.class);
     }
