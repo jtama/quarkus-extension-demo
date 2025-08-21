@@ -1,9 +1,6 @@
 package org.acme.configurationProvider.deployment;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
-import io.quarkus.runtime.annotations.ConfigPhase;
-import io.quarkus.runtime.annotations.ConfigRoot;
 import io.smallrye.config.WithDefault;
 import io.smallrye.config.WithName;
 
