@@ -8,7 +8,6 @@ import io.quarkus.deployment.builditem.DockerStatusBuildItem;
 import io.quarkus.deployment.builditem.LaunchModeBuildItem;
 import io.quarkus.deployment.console.ConsoleInstalledBuildItem;
 import io.quarkus.deployment.console.StartupLogCompressor;
-import io.quarkus.deployment.dev.devservices.GlobalDevServicesConfig;
 import io.quarkus.deployment.logging.LoggingSetupBuildItem;
 import io.quarkus.devservices.common.ConfigureUtil;
 import io.quarkus.devservices.common.ContainerAddress;
@@ -41,7 +40,7 @@ public class DevServicesProcessor {
 
     static volatile boolean first = true;
 
-    @BuildStep(onlyIfNot = IsNormal.class, onlyIf = GlobalDevServicesConfig.Enabled.class)
+    @BuildStep(onlyIfNot = IsNormal.class, onlyIf = io.quarkus.deployment.dev.devservices.DevServicesConfig.Enabled.class)
     public DevServicesResultBuildItem startEnvProviderDevService(
             DockerStatusBuildItem dockerStatusBuildItem,
             LaunchModeBuildItem launchMode,
@@ -50,13 +49,13 @@ public class DevServicesProcessor {
             Optional<ConsoleInstalledBuildItem> consoleInstalledBuildItem,
             CuratedApplicationShutdownBuildItem closeBuildItem,
             LoggingSetupBuildItem loggingSetupBuildItem,
-            GlobalDevServicesConfig devServicesConfig) {
+            io.quarkus.deployment.dev.devservices.DevServicesConfig devServicesConfig) {
 
         StartupLogCompressor compressor = new StartupLogCompressor(
                 (launchMode.isTest() ? "(test) " : "") + "AcmeEnv Dev Services Starting:",
                 consoleInstalledBuildItem, loggingSetupBuildItem);
         try {
-            devService = startAcmeEnv(dockerStatusBuildItem, launchMode, devServicesConfig.timeout, acmeEnvironmentBuildItem, buildTimeConfiguration.devservices());
+            devService = startAcmeEnv(dockerStatusBuildItem, launchMode, devServicesConfig.timeout(), acmeEnvironmentBuildItem, buildTimeConfiguration.devservices());
             if (devService == null) {
                 compressor.closeAndDumpCaptured();
             } else {
