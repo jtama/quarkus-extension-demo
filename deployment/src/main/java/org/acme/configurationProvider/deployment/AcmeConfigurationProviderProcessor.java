@@ -3,9 +3,9 @@ package org.acme.configurationProvider.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-class AcmeConfigurationProviderProcessor {
+public class AcmeConfigurationProviderProcessor {
 
-    private static final String FEATURE = "configuration-provider";
+    public static final String FEATURE = "configuration-provider";
 
     @BuildStep
     FeatureBuildItem feature() {

@@ -4,7 +4,7 @@ import io.quarkus.runtime.annotations.ConfigGroup;
 import io.smallrye.config.WithDefault;
 
 @ConfigGroup
-public interface DevServicesConfig {
+public interface AcmeDevServicesConfig {
 
     /**
      * Enable or disable Dev Services explicitly. Dev Services are automatically enabled unless {@code acme.environment.url} is
